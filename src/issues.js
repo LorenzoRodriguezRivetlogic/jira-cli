@@ -219,14 +219,16 @@ export default class JiraIssues {
   * Show issues in a table format
   */
   showIssues( issues ) {
+    let config = jira.config.defaults;
+
     const table = new Table({
       chars: jira.tableChars,
-      head: ['Key', 'Status', 'Summary']
+      head: ['Key', 'Status', 'Summary', 'URL']
     });
 
     issues.forEach(function( issue ){
       table.push(
-        [color.blue( issue.key ), color.green( issue.fields.status.name ), issue.fields.summary ]
+        [color.blue( issue.key ), color.green( issue.fields.status.name ), issue.fields.summary, config.protocol + '://' + config.host + '/browse/' + issue.key ]
       );
     });
 
